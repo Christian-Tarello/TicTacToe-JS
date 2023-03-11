@@ -147,3 +147,106 @@ const Gameboard = (function () {
         getBoard
     }
 })()
+
+function Player(name, symbol) {
+    let won = false;
+    function getName() {
+        return name;
+    }
+    function getSymbol() {
+        return symbol;
+    }
+    function assignWinner() {
+        won = true;
+    }
+    function isWinner() {
+        return won;
+    }
+    return {
+        getName,
+        getSymbol,
+        assignWinner,
+        isWinner
+    }
+}
+
+function Game(board, playerOne, playerTwo) {
+    const MAX_TURNS = 9;
+    let remainingTurns = MAX_TURNS;
+    let activePlayer = playerOne;
+    let isGameTied = false;
+    let isGameOver = false;
+    
+    // Public Method
+    function getActivePlayer() {
+        return activePlayer;
+    }
+
+    // Private Method
+    function switchActivePlayer() {
+        activePlayer = getActivePlayer() === playerOne ? playerTwo : playerOne;
+    }
+
+    // Private Method
+    function updateGameState() {
+        remainingTurns -= 1;
+        if (board.getWinningCoordinates().length !== 0){
+            getActivePlayer().assignWinner();
+            isGameOver = true;
+            return;
+        } 
+        if (remainingTurns === 0) {
+            isGameOver = true;
+            isGameTied = true;
+            return;
+        }
+        switchActivePlayer();
+    }
+
+    // Public Method
+    function playTurn(x, y) {
+        if (isGameOver === true) {
+            return false;
+        }
+        const isTurnSuccesful = board.makeMove(x, y, getActivePlayer().getSymbol());
+        if (!isTurnSuccesful) {
+            return false;
+        }
+        updateGameState();
+        return true;
+    }
+
+    // Public Method
+    function getWinner() {
+        if (playerOne.isWinner()) {
+            return playerOne;
+        }
+        if (playerTwo.isWinner()) {
+            return playerTwo;
+        }
+    }
+
+    // Public Method
+    function isTie() {
+        return isGameTied;
+    }
+
+    // Public Method
+    function isOver() {
+        return isGameOver;
+    }
+
+    // Public Method
+    function getWinningCoordinates() {
+        return board.getWinningCoordinates();
+    }
+
+    return {
+        playTurn,
+        getActivePlayer,
+        getWinningCoordinates,
+        getWinner,
+        isTie,
+        isOver
+    };
+}
