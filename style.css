@@ -1,0 +1,18 @@
+*,
+:before,
+:after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+.bodyWrapper {
+    height: 100%;
+    background-color: #2F3E46;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
