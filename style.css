@@ -74,3 +74,11 @@ body {
 .ticTacToe-slot:hover {
     filter: brightness(110%);
 }
+
+.ticTacToe-slot[data-symbol="x"] {
+    background-image: url(images/cross.svg);
+}
+
+.ticTacToe-slot[data-symbol="o"] {
+    background-image: url(images/nought.svg);
+}
