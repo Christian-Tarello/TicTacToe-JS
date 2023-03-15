@@ -18,11 +18,16 @@ body {
 }
 
 .ticTacToe {
+    --ticTacToe-width: clamp(10rem, 80vw, 80vh);
+    --ticTacToe-height: clamp(15rem, 90vw, 90vh);
+    --ticTacToe-padding: 1rem;
+    --ticTacToe-contentWidth: calc(var(--ticTacToe-width) - var(--ticTacToe-padding));
+    --ticTacToe-contentHeight: calc(var(--ticTacToe-height) - var(--ticTacToe-padding));
     background-color: #57a3c9;
-    padding: 2rem;
-    border-radius: 1rem;
-    height: clamp(15rem, 90vw, 90vh);
-    width: clamp(10rem, 80vw, 80vh);
+    padding: var(--ticTacToe-padding);
+    border-radius: var(--ticTacToe-padding);
+    height: var(--ticTacToe-height);
+    width: var(--ticTacToe-width);
 }
 
 .ticTacToe-title {
