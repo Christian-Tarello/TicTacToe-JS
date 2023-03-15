@@ -16,3 +16,20 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+.ticTacToe {
+    background-color: #57a3c9;
+    padding: 2rem;
+    border-radius: 1rem;
+    height: clamp(15rem, 90vw, 90vh);
+    width: clamp(10rem, 80vw, 80vh);
+}
+
+.ticTacToe-title {
+    color: #FFD43B;
+    background-color: #3A678F;
+    text-align: center;
+    font-size: 2rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
