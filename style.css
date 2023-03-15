@@ -29,6 +29,9 @@ body {
     border-radius: var(--ticTacToe-padding);
     min-height: var(--ticTacToe-height);
     width: var(--ticTacToe-width);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .ticTacToe-title {
