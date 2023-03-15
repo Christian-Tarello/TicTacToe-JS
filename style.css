@@ -27,6 +27,8 @@ body {
 
 .ticTacToe-title {
     color: #FFD43B;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
     background-color: #3A678F;
     text-align: center;
     font-size: 2rem;
