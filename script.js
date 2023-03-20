@@ -279,8 +279,9 @@ const ScreenController = (function (board) {
     const handleGameOver = function () {};
 
     const slotClickHandler = function (e) {
-        const targetElement = e.target;
-        gameInstance.playTurn(targetElement.dataset.x, targetElement.dataset.y);
+        const x = parseInt(e.target.dataset.x, 10);
+        const y = parseInt(e.target.dataset.y, 10);
+        gameInstance.playTurn(x, y);
         updateScreen();
         if (gameInstance.isOver()) {
             handleGameOver();
