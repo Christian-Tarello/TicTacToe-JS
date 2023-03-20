@@ -250,3 +250,48 @@ function Game(board, playerOne, playerTwo) {
         isOver
     };
 }
+
+const ScreenController = (function (board) {
+    const boardElement = document.querySelector(".ticTacToe-board");
+    const slotElements = [...document.querySelectorAll(".ticTacToe-slot")];
+    const screenBoard = [slotElements.filter((element) => element.dataset.y === "0"),
+                         slotElements.filter((element) => element.dataset.y === "1"),
+                         slotElements.filter((element) => element.dataset.y === "2")]
+
+    let gameInstance = Game(board, Player("1", "x"), Player("2", "o"));
+
+    const setActiveSymbol = function () {
+        boardElement.dataset.activesymbol = gameInstance.getActivePlayer().getSymbol();
+    }
+
+    const clearActiveSymbol = function () {
+        boardElement.dataset.activesymbol = "";
+    }
+    
+    const updateScreen = function () {
+        board.getBoard().forEach((row, y) => {
+            row.forEach((symbol, x) => {
+                screenBoard[y][x].dataset.symbol = symbol;
+            })
+        })
+    };
+
+    const handleGameOver = function () {};
+
+    const slotClickHandler = function (e) {
+        const targetElement = e.target;
+        gameInstance.playTurn(targetElement.dataset.x, targetElement.dataset.y);
+        updateScreen();
+        if (gameInstance.isOver()) {
+            handleGameOver();
+            clearActiveSymbol();
+        } else {
+            setActiveSymbol();
+        }
+    };
+
+    slotElements.forEach((element) => element.addEventListener("click", slotClickHandler));
+    updateScreen();
+    setActiveSymbol();
+
+})(Gameboard)
