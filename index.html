@@ -12,33 +12,70 @@
     <div class="bodyWrapper">
         <div class="ticTacToe">
             <div class="ticTacToe-title">TIC TAC TOE</div>
-            <div class="ticTacToe-board" data-activeSymbol="">
-                <div class="ticTacToe-slotWrapper">
-                    <button type="button" class="ticTacToe-slot" data-x="0" data-y="0" data-symbol=""></button>
-                </div>
-                <div class="ticTacToe-slotWrapper">
-                    <button type="button" class="ticTacToe-slot" data-x="1" data-y="0" data-symbol=""></button>
-                </div>
-                <div class="ticTacToe-slotWrapper">
-                    <button type="button" class="ticTacToe-slot" data-x="2" data-y="0" data-symbol=""></button>
-                </div>
-                <div class="ticTacToe-slotWrapper">
-                    <button type="button" class="ticTacToe-slot" data-x="0" data-y="1" data-symbol=""></button>
-                </div>
-                <div class="ticTacToe-slotWrapper">
-                    <button type="button" class="ticTacToe-slot" data-x="1" data-y="1" data-symbol=""></button>
-                </div>
-                <div class="ticTacToe-slotWrapper">
-                    <button type="button" class="ticTacToe-slot" data-x="2" data-y="1" data-symbol=""></button>
-                </div>
-                <div class="ticTacToe-slotWrapper">
-                    <button type="button" class="ticTacToe-slot" data-x="0" data-y="2" data-symbol=""></button>
-                </div>
-                <div class="ticTacToe-slotWrapper">
-                    <button type="button" class="ticTacToe-slot" data-x="1" data-y="2" data-symbol=""></button>
-                </div>
-                <div class="ticTacToe-slotWrapper">
-                    <button type="button" class="ticTacToe-slot" data-x="2" data-y="2" data-symbol=""></button>
+            <div class="ticTacToe-container">
+                <form action="post" class="ticTacToe-form">
+                    <div class="ticTacToe-formWrapper ticTacToe-formWrapper--hidden">
+                        <fieldset class="ticTacToe-fieldset">
+                            <legend class="ticTacToe-legend">Player 1</legend>
+                            <ul class="ticTacToe-fieldList">
+                                <li class="ticTacToe-field">
+                                    <label for="symbolOne">Symbol:</label>
+                                    <input id="symbolOne" name="symbolOne" type="checkbox" checked>
+                                </li>
+                                <li class="ticTacToe-field">
+                                    <label for="playerOne">Name:</label>
+                                    <input id="playerOne" name="playerOne" type="text" placeholder="Name" value="Player One" required>
+                                </li>
+                            </ul>
+                        </fieldset>
+                        <fieldset class="ticTacToe-fieldset">
+                            <legend class="ticTacToe-legend">Player 2</legend>
+                            <ul class="ticTacToe-fieldList">
+                                <li class="ticTacToe-field">
+                                    <label for="symbolTwo">Symbol:</label>
+                                    <input id="symbolTwo" name="symbolTwo" type="checkbox">
+                                </li>
+                                <li class="ticTacToe-field">
+                                    <label for="playerTwo">Name:</label>
+                                    <input id="playerTwo" name="playerTwo" type="text" placeholder="Name" value="Player Two" required>
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </div>
+                    <div class="ticTacToe-actions">
+                        <button class="ticTacToe-action ticTacToe-action--expand" type="submit">New Game</button>
+                        <button class="ticTacToe-action ticTacToe-action--settings" type="button">*</button>
+                    </div>
+                    
+                </form>
+                <div class="ticTacToe-board" data-activeSymbol="">
+                    <div class="ticTacToe-slotWrapper">
+                        <button type="button" class="ticTacToe-slot" data-x="0" data-y="0" data-symbol=""></button>
+                    </div>
+                    <div class="ticTacToe-slotWrapper">
+                        <button type="button" class="ticTacToe-slot" data-x="1" data-y="0" data-symbol=""></button>
+                    </div>
+                    <div class="ticTacToe-slotWrapper">
+                        <button type="button" class="ticTacToe-slot" data-x="2" data-y="0" data-symbol=""></button>
+                    </div>
+                    <div class="ticTacToe-slotWrapper">
+                        <button type="button" class="ticTacToe-slot" data-x="0" data-y="1" data-symbol=""></button>
+                    </div>
+                    <div class="ticTacToe-slotWrapper">
+                        <button type="button" class="ticTacToe-slot" data-x="1" data-y="1" data-symbol=""></button>
+                    </div>
+                    <div class="ticTacToe-slotWrapper">
+                        <button type="button" class="ticTacToe-slot" data-x="2" data-y="1" data-symbol=""></button>
+                    </div>
+                    <div class="ticTacToe-slotWrapper">
+                        <button type="button" class="ticTacToe-slot" data-x="0" data-y="2" data-symbol=""></button>
+                    </div>
+                    <div class="ticTacToe-slotWrapper">
+                        <button type="button" class="ticTacToe-slot" data-x="1" data-y="2" data-symbol=""></button>
+                    </div>
+                    <div class="ticTacToe-slotWrapper">
+                        <button type="button" class="ticTacToe-slot" data-x="2" data-y="2" data-symbol=""></button>
+                    </div>
                 </div>
             </div>
         </div>
