@@ -252,14 +252,21 @@ function Game(board, playerOne, playerTwo) {
 }
 
 const ScreenController = (function (board) {
+    // Selecting board elements
     const boardElement = document.querySelector(".ticTacToe-board");
     const slotElements = [...document.querySelectorAll(".ticTacToe-slot")];
     const screenBoard = [slotElements.filter((element) => element.dataset.y === "0"),
                          slotElements.filter((element) => element.dataset.y === "1"),
-                         slotElements.filter((element) => element.dataset.y === "2")]
+                         slotElements.filter((element) => element.dataset.y === "2")];
+    
+    // Selecting form elements
+    const formElement = document.querySelector(".ticTacToe-form");
+    const formWrapperElement = formElement.querySelector(".ticTacToe-formWrapper");
+    const settingsButton = formElement.querySelector('.ticTacToe-action[data-action="settings"]');
 
     let gameInstance = Game(board, Player("1", "x"), Player("2", "o"));
 
+    // Helper Functions
     const setActiveSymbol = function () {
         boardElement.dataset.activesymbol = gameInstance.getActivePlayer().getSymbol();
     }
@@ -278,6 +285,7 @@ const ScreenController = (function (board) {
 
     const handleGameOver = function () {};
 
+    // Handlers
     const slotClickHandler = function (e) {
         const x = parseInt(e.target.dataset.x, 10);
         const y = parseInt(e.target.dataset.y, 10);
@@ -291,8 +299,17 @@ const ScreenController = (function (board) {
         }
     };
 
+    const settingsClickHandler = function () {
+        formWrapperElement.classList.toggle("ticTacToe-formWrapper--hidden");
+        boardElement.classList.toggle("ticTacToe-board--hidden");
+    }
+    
+    // Initialize Game
     slotElements.forEach((element) => element.addEventListener("click", slotClickHandler));
     updateScreen();
     setActiveSymbol();
+
+    // Setting action handlers
+    settingsButton.addEventListener("click", settingsClickHandler);
 
 })(Gameboard)
