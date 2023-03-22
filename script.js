@@ -283,6 +283,12 @@ const ScreenController = (function (board) {
         })
     };
 
+    const restartScreen = function () {
+        Gameboard.restart();
+        updateScreen();
+        setActiveSymbol();
+    }
+
     const handleGameOver = function () {};
 
     // Handlers
@@ -303,6 +309,15 @@ const ScreenController = (function (board) {
         formWrapperElement.classList.toggle("ticTacToe-formWrapper--hidden");
         boardElement.classList.toggle("ticTacToe-board--hidden");
     }
+
+    const submitClickHandler = function (e) {
+        e.preventDefault();
+        const data = new FormData(e.target);
+        const playerOne = Player(data.get("playerOne"), (data.get("symbolOne") ? "x" : "o"));
+        const playerTwo = Player(data.get("playerTwo"), (data.get("symbolTwo") ? "x" : "o"));
+        gameInstance = Game(Gameboard, playerOne, playerTwo);
+        restartScreen();
+    }
     
     // Initialize Game
     slotElements.forEach((element) => element.addEventListener("click", slotClickHandler));
@@ -311,5 +326,6 @@ const ScreenController = (function (board) {
 
     // Setting action handlers
     settingsButton.addEventListener("click", settingsClickHandler);
+    formElement.addEventListener("submit", submitClickHandler);
 
 })(Gameboard)
