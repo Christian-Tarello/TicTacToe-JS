@@ -291,6 +291,16 @@ const ScreenController = (function (board) {
         setActiveSymbol();
     }
 
+    const showGameScreen = function () {
+        formWrapperElement.classList.add("ticTacToe-formWrapper--hidden");
+        boardElement.classList.remove("ticTacToe-board--hidden");
+    }
+
+    const toggleGameScreen = function () {
+        formWrapperElement.classList.toggle("ticTacToe-formWrapper--hidden");
+        boardElement.classList.toggle("ticTacToe-board--hidden");
+    }
+
     const handleGameOver = function () {};
 
     // Handlers
@@ -308,8 +318,7 @@ const ScreenController = (function (board) {
     };
 
     const settingsClickHandler = function () {
-        formWrapperElement.classList.toggle("ticTacToe-formWrapper--hidden");
-        boardElement.classList.toggle("ticTacToe-board--hidden");
+        toggleGameScreen();
     }
 
     const submitClickHandler = function (e) {
@@ -319,6 +328,7 @@ const ScreenController = (function (board) {
         const playerTwo = Player(data.get("playerTwo"), (data.get("symbolTwo") ? "x" : "o"));
         gameInstance = Game(Gameboard, playerOne, playerTwo);
         restartScreen();
+        showGameScreen();
     }
 
     const symbolInputHandler = function (e) {
