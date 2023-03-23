@@ -263,6 +263,8 @@ const ScreenController = (function (board) {
     const formElement = document.querySelector(".ticTacToe-form");
     const formWrapperElement = formElement.querySelector(".ticTacToe-formWrapper");
     const settingsButton = formElement.querySelector('.ticTacToe-action[data-action="settings"]');
+    const symbolOneElement = formElement.querySelector("#symbolOne");
+    const symbolTwoElement = formElement.querySelector("#symbolTwo");
 
     let gameInstance = Game(board, Player("1", "x"), Player("2", "o"));
 
@@ -318,6 +320,14 @@ const ScreenController = (function (board) {
         gameInstance = Game(Gameboard, playerOne, playerTwo);
         restartScreen();
     }
+
+    const symbolInputHandler = function (e) {
+        if (symbolOneElement.checked === symbolTwoElement.checked) {
+            symbolOneElement.setCustomValidity("Same symbol not allowed.");
+        } else {
+            symbolOneElement.setCustomValidity("");
+        }
+    }
     
     // Initialize Game
     slotElements.forEach((element) => element.addEventListener("click", slotClickHandler));
@@ -327,5 +337,9 @@ const ScreenController = (function (board) {
     // Setting action handlers
     settingsButton.addEventListener("click", settingsClickHandler);
     formElement.addEventListener("submit", submitClickHandler);
+
+    // Validation Handlers
+    symbolOneElement.addEventListener("change", symbolInputHandler);
+    symbolTwoElement.addEventListener("change", symbolInputHandler);
 
 })(Gameboard)
