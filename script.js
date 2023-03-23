@@ -324,8 +324,10 @@ const ScreenController = (function (board) {
     const symbolInputHandler = function (e) {
         if (symbolOneElement.checked === symbolTwoElement.checked) {
             symbolOneElement.setCustomValidity("Same symbol not allowed.");
+            symbolTwoElement.setCustomValidity("Same symbol not allowed.");
         } else {
             symbolOneElement.setCustomValidity("");
+            symbolTwoElement.setCustomValidity("");
         }
     }
     
