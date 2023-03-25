@@ -18,18 +18,12 @@ body {
 }
 
 .ticTacToe {
-    --ticTacToe-width: clamp(10rem, 90vw, 80vh);
-    --ticTacToe-min-height: var(--ticTacToe-width);
-    --ticTacToe-padding: 1rem;
-    --ticTacToe-contentWidth: calc(var(--ticTacToe-width) - var(--ticTacToe-padding) * 2);
-    --ticTacToe-contentHeight: calc(var(--ticTacToe-height) - var(--ticTacToe-padding) * 2);
-    --ticTacToe-turn: attr(data-turn string);
+    --ticTacToe-boardWidth: clamp(10rem, 85vw, 70vh);
+    min-width: var(--ticTacToe-boardWidth);
     background-color: #57a3c9;
     font-family: 'Courier New', Courier, monospace;
-    padding: var(--ticTacToe-padding);
-    border-radius: var(--ticTacToe-padding);
-    min-height: var(--ticTacToe-height);
-    width: var(--ticTacToe-width);
+    padding: 1rem;
+    border-radius: 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -52,8 +46,8 @@ body {
 }
 
 .ticTacToe-board {
-    height: var(--ticTacToe-contentWidth);
-    width: var(--ticTacToe-contentWidth);
+    height: var(--ticTacToe-boardWidth);
+    width: var(--ticTacToe-boardWidth);
     background-color: #3A678F;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
