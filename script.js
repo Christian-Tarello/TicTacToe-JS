@@ -252,19 +252,22 @@ function Game(board, playerOne, playerTwo) {
 }
 
 const ScreenController = (function (board) {
+    // Selecting main element
+    const ticTacToeElement = document.querySelector(".ticTacToe");
+
     // Selecting board elements
-    const boardElement = document.querySelector(".ticTacToe-board");
-    const slotElements = [...document.querySelectorAll(".ticTacToe-slot")];
+    const boardElement = ticTacToeElement.querySelector(".ticTacToe-board");
+    const slotElements = [...ticTacToeElement.querySelectorAll(".ticTacToe-slot")];
     const screenBoard = [slotElements.filter((element) => element.dataset.y === "0"),
                          slotElements.filter((element) => element.dataset.y === "1"),
                          slotElements.filter((element) => element.dataset.y === "2")];
     
     // Selecting form elements
-    const formElement = document.querySelector(".ticTacToe-form");
-    const formWrapperElement = formElement.querySelector(".ticTacToe-formWrapper");
-    const settingsButton = formElement.querySelector('.ticTacToe-action[data-action="settings"]');
-    const symbolOneElement = formElement.querySelector("#symbolOne");
-    const symbolTwoElement = formElement.querySelector("#symbolTwo");
+    const formElement = ticTacToeElement.querySelector(".ticTacToe-form");
+    const formWrapperElement = ticTacToeElement.querySelector(".ticTacToe-formWrapper");
+    const settingsButton = ticTacToeElement.querySelector('.ticTacToe-action[data-action="settings"]');
+    const symbolOneElement = ticTacToeElement.querySelector("#symbolOne");
+    const symbolTwoElement = ticTacToeElement.querySelector("#symbolTwo");
 
     let gameInstance = Game(board, Player("1", "x"), Player("2", "o"));
 
