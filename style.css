@@ -18,8 +18,7 @@ body {
 }
 
 .ticTacToe {
-    --ticTacToe-boardWidth: clamp(10rem, 85vw, 70vh);
-    min-width: var(--ticTacToe-boardWidth);
+    width: clamp(10rem, 85vw, 70vh);
     background-color: #57a3c9;
     font-family: 'Courier New', Courier, monospace;
     padding: 1rem;
@@ -46,8 +45,7 @@ body {
 }
 
 .ticTacToe-board {
-    height: var(--ticTacToe-boardWidth);
-    width: var(--ticTacToe-boardWidth);
+    aspect-ratio: 1/1;
     background-color: #3A678F;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
