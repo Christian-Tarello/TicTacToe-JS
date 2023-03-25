@@ -11,8 +11,8 @@
 <body>
     <div class="bodyWrapper">
         <div class="ticTacToe">
-            <div class="ticTacToe-title">TIC TAC TOE</div>
-            <div class="ticTacToe-container">
+            <div class="ticTacToe-header">
+                <div class="ticTacToe-title">TIC TAC TOE</div>
                 <form action="post" class="ticTacToe-form">
                     <div class="ticTacToe-formWrapper ticTacToe-formWrapper--hidden">
                         <fieldset class="ticTacToe-fieldset">
@@ -46,8 +46,9 @@
                         <button class="ticTacToe-action ticTacToe-action--expand" type="submit" data-action="submit">New Game</button>
                         <button class="ticTacToe-action ticTacToe-action--settings" type="button" data-action="settings">*</button>
                     </div>
-                    
                 </form>
+            </div>
+            <div class="ticTacToe-content">
                 <div class="ticTacToe-board" data-activeSymbol="">
                     <div class="ticTacToe-slotWrapper">
                         <button type="button" class="ticTacToe-slot" data-x="0" data-y="0" data-symbol=""></button>
