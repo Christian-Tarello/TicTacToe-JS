@@ -269,6 +269,9 @@ const ScreenController = (function (board) {
     const symbolOneElement = ticTacToeElement.querySelector("#symbolOne");
     const symbolTwoElement = ticTacToeElement.querySelector("#symbolTwo");
 
+    // Selecting miscellaneous elements
+    const contentElement = ticTacToeElement.querySelector(".ticTacToe-content");
+
     let gameInstance = Game(board, Player("1", "x"), Player("2", "o"));
 
     // Helper Functions
@@ -296,12 +299,12 @@ const ScreenController = (function (board) {
 
     const showGameScreen = function () {
         formWrapperElement.classList.add("ticTacToe-formWrapper--hidden");
-        boardElement.classList.remove("ticTacToe-board--hidden");
+        contentElement.classList.remove("ticTacToe-content--hidden");
     }
 
     const toggleGameScreen = function () {
         formWrapperElement.classList.toggle("ticTacToe-formWrapper--hidden");
-        boardElement.classList.toggle("ticTacToe-board--hidden");
+        contentElement.classList.toggle("ticTacToe-content--hidden");
     }
 
     const handleGameOver = function () {};

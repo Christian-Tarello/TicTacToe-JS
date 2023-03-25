@@ -32,6 +32,10 @@ body {
     gap: 0.5rem;
 }
 
+.ticTacToe-content--hidden {
+    display: none;
+}
+
 .ticTacToe-title {
     color: #FFD43B;
     font-weight: 700;
@@ -48,10 +52,6 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
-}
-
-.ticTacToe-board--hidden {
-    display: none;
 }
 
 .ticTacToe-slotWrapper {
