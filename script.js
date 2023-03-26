@@ -283,6 +283,19 @@ const ScreenController = (function (board) {
         boardElement.dataset.activesymbol = "";
     }
     
+    const unmarkSlots = function () {
+        slotElements.forEach((element) => {
+            element.className = "ticTacToe-slot";
+        })
+    }
+
+    const markWinningSlots = function () {
+        const winningCoordinates = gameInstance.getWinningCoordinates();
+        winningCoordinates.forEach((coordinatePair) => {
+            screenBoard[coordinatePair[1]][coordinatePair[0]].classList.add("ticTacToe-slot--win")
+        });
+    }
+
     const updateScreen = function () {
         board.getBoard().forEach((row, y) => {
             row.forEach((symbol, x) => {
@@ -290,12 +303,6 @@ const ScreenController = (function (board) {
             })
         })
     };
-
-    const unmarkSlots = function () {
-        slotElements.forEach((element) => {
-            element.className = "ticTacToe-slot";
-        })
-    }
 
     const restartScreen = function () {
         Gameboard.restart();
@@ -312,13 +319,6 @@ const ScreenController = (function (board) {
     const toggleGameScreen = function () {
         formWrapperElement.classList.toggle("ticTacToe-formWrapper--hidden");
         contentElement.classList.toggle("ticTacToe-content--hidden");
-    }
-
-    const markWinningSlots = function () {
-        const winningCoordinates = gameInstance.getWinningCoordinates();
-        winningCoordinates.forEach((coordinatePair) => {
-            screenBoard[coordinatePair[1]][coordinatePair[0]].classList.add("ticTacToe-slot--win")
-        });
     }
 
     const handleGameOver = function () {
