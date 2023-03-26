@@ -107,6 +107,11 @@ body {
     background-size: 50%;
 }
 
+.ticTacToe-slot--win {
+    background-color: #008020;
+}
+
+
 .ticTacToe-form {
     color: #EEE;
     display: flex;

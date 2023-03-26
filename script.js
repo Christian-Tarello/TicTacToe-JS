@@ -291,10 +291,17 @@ const ScreenController = (function (board) {
         })
     };
 
+    const unmarkSlots = function () {
+        slotElements.forEach((element) => {
+            element.className = "ticTacToe-slot";
+        })
+    }
+
     const restartScreen = function () {
         Gameboard.restart();
         updateScreen();
         setActiveSymbol();
+        unmarkSlots();
     }
 
     const showGameScreen = function () {
@@ -307,7 +314,18 @@ const ScreenController = (function (board) {
         contentElement.classList.toggle("ticTacToe-content--hidden");
     }
 
-    const handleGameOver = function () {};
+    const markWinningSlots = function () {
+        const winningCoordinates = gameInstance.getWinningCoordinates();
+        winningCoordinates.forEach((coordinatePair) => {
+            screenBoard[coordinatePair[1]][coordinatePair[0]].classList.add("ticTacToe-slot--win")
+        });
+    }
+
+    const handleGameOver = function () {
+        if (!gameInstance.isTie()) {
+            markWinningSlots();
+        }
+    };
 
     // Handlers
     const slotClickHandler = function (e) {
