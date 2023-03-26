@@ -79,7 +79,9 @@ body {
     border: 0px;
     cursor: pointer;
     background-color: #57a3c9;
-    color: #FFD43B;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80%;
     padding: 0;
 }
 
@@ -89,27 +91,20 @@ body {
 
 .ticTacToe-slot[data-symbol="x"] {
     background-image: url(images/cross.svg);
-    background-repeat: no-repeat;
 }
 
 .ticTacToe-slot[data-symbol="o"] {
     background-image: url(images/nought.svg);
-    background-repeat: no-repeat;
 }
 
 .ticTacToe-board[data-activeSymbol="x"] .ticTacToe-slot[data-symbol=""]:hover{
     background-image: url(images/cross.svg);
     background-size: 50%;
-    background-repeat: no-repeat;
-    background-position: center;
-    
 }
 
 .ticTacToe-board[data-activeSymbol="o"] .ticTacToe-slot[data-symbol=""]:hover{
     background-image: url(images/nought.svg);
     background-size: 50%;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
 .ticTacToe-form {
