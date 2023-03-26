@@ -252,29 +252,33 @@ function Game(board, playerOne, playerTwo) {
 }
 
 const ScreenController = (function (board) {
-    // Selecting main element
+    // || Initial Setup ||
+    let gameInstance = Game(board, Player("1", "x"), Player("2", "o"));
+
+    // || Selects ||
+    // Selection Group: Component 
     const ticTacToeElement = document.querySelector(".ticTacToe");
 
-    // Selecting board elements
-    const boardElement = ticTacToeElement.querySelector(".ticTacToe-board");
-    const slotElements = [...ticTacToeElement.querySelectorAll(".ticTacToe-slot")];
-    const screenBoard = [slotElements.filter((element) => element.dataset.y === "0"),
-                         slotElements.filter((element) => element.dataset.y === "1"),
-                         slotElements.filter((element) => element.dataset.y === "2")];
-    
-    // Selecting form elements
+    // Selection Group: Form 
     const formElement = ticTacToeElement.querySelector(".ticTacToe-form");
     const formWrapperElement = ticTacToeElement.querySelector(".ticTacToe-formWrapper");
     const settingsButton = ticTacToeElement.querySelector('.ticTacToe-action[data-action="settings"]');
     const symbolOneElement = ticTacToeElement.querySelector("#symbolOne");
     const symbolTwoElement = ticTacToeElement.querySelector("#symbolTwo");
 
-    // Selecting miscellaneous elements
+    // Selection Group: Content 
     const contentElement = ticTacToeElement.querySelector(".ticTacToe-content");
 
-    let gameInstance = Game(board, Player("1", "x"), Player("2", "o"));
+    // Selection Group: Board 
+    const boardElement = ticTacToeElement.querySelector(".ticTacToe-board");
+    const slotElements = [...ticTacToeElement.querySelectorAll(".ticTacToe-slot")];
+    const screenBoard = [slotElements.filter((element) => element.dataset.y === "0"),
+                         slotElements.filter((element) => element.dataset.y === "1"),
+                         slotElements.filter((element) => element.dataset.y === "2")];
+    
 
-    // Helper Functions
+    // || Helper Functions ||
+    // Function Group: Setting Active Symbol
     const setActiveSymbol = function () {
         boardElement.dataset.activesymbol = gameInstance.getActivePlayer().getSymbol();
     }
@@ -283,6 +287,7 @@ const ScreenController = (function (board) {
         boardElement.dataset.activesymbol = "";
     }
     
+    // Function Group: Marking Slots
     const unmarkSlots = function () {
         slotElements.forEach((element) => {
             element.className = "ticTacToe-slot";
@@ -296,6 +301,7 @@ const ScreenController = (function (board) {
         });
     }
 
+    // Function Group: Screen Updating
     const updateScreen = function () {
         board.getBoard().forEach((row, y) => {
             row.forEach((symbol, x) => {
@@ -311,6 +317,7 @@ const ScreenController = (function (board) {
         unmarkSlots();
     }
 
+    // Function Group: Toggle Settings
     const showGameScreen = function () {
         formWrapperElement.classList.add("ticTacToe-formWrapper--hidden");
         contentElement.classList.remove("ticTacToe-content--hidden");
@@ -321,13 +328,15 @@ const ScreenController = (function (board) {
         contentElement.classList.toggle("ticTacToe-content--hidden");
     }
 
+    // Function Group: Game Over
     const handleGameOver = function () {
         if (!gameInstance.isTie()) {
             markWinningSlots();
         }
     };
 
-    // Handlers
+    // || Handlers ||
+    // Handler Group: Content
     const slotClickHandler = function (e) {
         const x = parseInt(e.target.dataset.x, 10);
         const y = parseInt(e.target.dataset.y, 10);
@@ -341,6 +350,7 @@ const ScreenController = (function (board) {
         }
     };
 
+    // Handler Group: Header
     const settingsClickHandler = function () {
         toggleGameScreen();
     }
@@ -365,6 +375,7 @@ const ScreenController = (function (board) {
         }
     }
     
+    // || Final Setup ||
     // Initialize Game
     slotElements.forEach((element) => element.addEventListener("click", slotClickHandler));
     updateScreen();
