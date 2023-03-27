@@ -1,115 +1,26 @@
 const Gameboard = (function () {
-    const size = 3;
+    const SIZE = 3;
+    const EMPTY_SLOT = "";
     const board = [];
-    const emptySlot = "";
-    let winCoordinates = [];
 
     // Private Method
     function buildBoard() {
-        for (let rowIndex = 0; rowIndex < size; rowIndex += 1) {
+        for (let rowIndex = 0; rowIndex < SIZE; rowIndex += 1) {
             board.push([]);
-            for (let columnIndex = 0; columnIndex < size; columnIndex += 1) {
-                board[rowIndex].push(emptySlot);            
+            for (let columnIndex = 0; columnIndex < SIZE; columnIndex += 1) {
+                board[rowIndex].push(EMPTY_SLOT);            
             }        
         }
     }
 
-    // Private Method
-    function getWinningRowCoordinates(y, symbol) {
-        const coordinates = [];
-        const affectedRow = board[y];
-        if (affectedRow.every((content) => content === symbol)) {
-            affectedRow.forEach((element, x) => {
-                coordinates.push([x,y]);
-            })
-        }
-        return coordinates;
-    }
-
-    // Private Method
-    function getWinningColumnCoordinates(x, symbol) {
-        const coordinates = [];
-        const affectedColumn = board.map(row => row[x]);
-        if (affectedColumn.every((content) => content === symbol)) {
-            affectedColumn.forEach((element, y) => {
-                coordinates.push([x,y]);
-            })
-        }
-        return coordinates;
-    }
-
-    // Private Method
-    function getWinningDescendingDiagonalCoordinates(x, y, symbol) {
-        if (x !== y) {
-            return [];
-        }
-        const coordinates = [];
-        const affectedDiagonal = board.map((row, xy) => row[xy])
-        if (affectedDiagonal.every((content) => content === symbol)) {
-            affectedDiagonal.forEach((element, xy) => {
-                coordinates.push([xy,xy]);
-            })
-        }
-        return coordinates;
-    }
-
-    // Private Method
-    function getWinningAscendingDiagonalCoordinates(x, y, symbol) {
-        if (x + y !== size - 1) {
-            return [];
-        }
-        const coordinates = [];
-        const affectedDiagonal = board.map((row, index) => board[index][(size - 1) - index])
-        if (affectedDiagonal.every((content) => content === symbol)) {
-            affectedDiagonal.forEach((element, xy) => {
-                coordinates.push([xy, (size - 1 - xy)]);
-            })
-        }
-        return coordinates;
-    }
-
-
-    // Private Method
-    function calculateWinningCoordinates(x, y, symbol) {
-        const rowCoordinates = getWinningRowCoordinates(y, symbol);
-        const columnCoordinates = getWinningColumnCoordinates(x, symbol);
-        const descendingDiagonalCoordinates = getWinningDescendingDiagonalCoordinates(x, y, symbol);
-        const ascendingDiagonalCoordinates = getWinningAscendingDiagonalCoordinates(x, y, symbol);
-        winCoordinates = [...rowCoordinates, ...columnCoordinates, ...descendingDiagonalCoordinates, ...ascendingDiagonalCoordinates];
-    }
-
-    // Private Method
-    function isValidMove(x, y) {
-        if (board[y][x] !== emptySlot) {
-            return false;
-        }
-        return true;
-    }
-
-    // Private Method
-    function clean() {
-        board.forEach((row) => row.fill(emptySlot));
+    // Public Method
+    function cleanBoard() {
+        board.forEach((row) => row.fill(EMPTY_SLOT));
     }
 
     // Public Method
     function makeMove(x, y, symbol) {
-        if (!isValidMove(x, y)) {
-            return false;
-        }
         board[y][x] = symbol;
-        calculateWinningCoordinates(x, y, symbol);
-        return true;
-    }
-
-    // Public Method
-    function getWinningCoordinates() {
-        return winCoordinates;
-    }
-
-    // Public Method
-    function restart() {
-        winCoordinates = []
-        clean()
     }
 
     // Public Method
@@ -137,14 +48,19 @@ const Gameboard = (function () {
         return boardCopy;
     }
 
+    // Public Method
+    function getSize(){
+        return SIZE;
+    }
+
     buildBoard();
 
     return {
         makeMove,
-        getWinningCoordinates,
-        restart,
+        cleanBoard,
         logBoard,
-        getBoard
+        getBoard,
+        getSize
     }
 })()
 
@@ -161,13 +77,16 @@ function Player(name, symbol) {
     }
 }
 
-function Game(board, playerOne, playerTwo) {
+function Game(boardObj, playerOne, playerTwo) {
     const MAX_TURNS = 9;
+    const BOARD_SIZE = boardObj.getSize();
+    let winCoordinates = [];
     let remainingTurns = MAX_TURNS;
     let activePlayer = playerOne;
     let isGameTied = false;
     let isGameOver = false;
-    
+
+    // Function Group: Manage Active Player    
     // Public Method
     function getActivePlayer() {
         return activePlayer;
@@ -178,10 +97,89 @@ function Game(board, playerOne, playerTwo) {
         activePlayer = getActivePlayer() === playerOne ? playerTwo : playerOne;
     }
 
+    // Function Group: Win Validation
+    // Private Method
+    function getWinningRowCoordinates(y, symbol, board) {
+        const coordinates = [];
+        const affectedRow = board[y];
+        if (affectedRow.every((containedSymbol) => containedSymbol === symbol)) {
+            affectedRow.forEach((_, x) => {
+                coordinates.push([x,y]);
+            })
+        }
+        return coordinates;
+    }
+
+    // Private Method
+    function getWinningColumnCoordinates(x, symbol, board) {
+        const coordinates = [];
+        const affectedColumn = board.map(row => row[x]);
+        if (affectedColumn.every((containedSymbol) => containedSymbol === symbol)) {
+            affectedColumn.forEach((_, y) => {
+                coordinates.push([x,y]);
+            })
+        }
+        return coordinates;
+    }
+
+    // Private Method
+    function getWinningDescendingDiagonalCoordinates(x, y, symbol, board) {
+        if (x !== y) {
+            return [];
+        }
+        const coordinates = [];
+        const affectedDiagonal = board.map((row, xy) => row[xy])
+        if (affectedDiagonal.every((containedSymbol) => containedSymbol === symbol)) {
+            affectedDiagonal.forEach((_, xy) => {
+                coordinates.push([xy,xy]);
+            })
+        }
+        return coordinates;
+    }
+
+    // Private Method
+    function getWinningAscendingDiagonalCoordinates(x, y, symbol, board) {
+        if (x + y !== BOARD_SIZE - 1) {
+            return [];
+        }
+        const coordinates = [];
+        const affectedDiagonal = board.map((row, index) => board[index][(BOARD_SIZE - 1) - index])
+        if (affectedDiagonal.every((containedSymbol) => containedSymbol === symbol)) {
+            affectedDiagonal.forEach((_, xy) => {
+                coordinates.push([xy, (BOARD_SIZE - 1 - xy)]);
+            })
+        }
+        return coordinates;
+    }
+
+
+    // Private Method
+    function calculateWinningCoordinates(x, y, symbol, board) {
+        const rowCoordinates = getWinningRowCoordinates(y, symbol, board);
+        const columnCoordinates = getWinningColumnCoordinates(x, symbol, board);
+        const descendingDiagonalCoordinates = getWinningDescendingDiagonalCoordinates(x, y, symbol, board);
+        const ascendingDiagonalCoordinates = getWinningAscendingDiagonalCoordinates(x, y, symbol, board);
+        winCoordinates = [...rowCoordinates, ...columnCoordinates, ...descendingDiagonalCoordinates, ...ascendingDiagonalCoordinates];
+    }
+
+    // Public Method
+    function getWinningCoordinates() {
+        return winCoordinates;
+    }
+
+    // Private Method
+    function isValidMove(x, y, board) {
+        if (isGameOver === true || board[y][x]) {
+            return false;
+        }
+        return true;
+    }
+
+    // Function Group: Game Logic
     // Private Method
     function updateGameState() {
         remainingTurns -= 1;
-        if (board.getWinningCoordinates().length !== 0){
+        if (getWinningCoordinates().length !== 0){
             isGameOver = true;
             return;
         } 
@@ -195,13 +193,12 @@ function Game(board, playerOne, playerTwo) {
 
     // Public Method
     function playTurn(x, y) {
-        if (isGameOver === true) {
+        if (!isValidMove(x, y, boardObj.getBoard())){
             return false;
         }
-        const isTurnSuccesful = board.makeMove(x, y, getActivePlayer().getSymbol());
-        if (!isTurnSuccesful) {
-            return false;
-        }
+        const activeSymbol = getActivePlayer().getSymbol();
+        boardObj.makeMove(x, y, activeSymbol);
+        calculateWinningCoordinates(x, y, activeSymbol, boardObj.getBoard());
         updateGameState();
         return true;
     }
@@ -214,11 +211,6 @@ function Game(board, playerOne, playerTwo) {
     // Public Method
     function isOver() {
         return isGameOver;
-    }
-
-    // Public Method
-    function getWinningCoordinates() {
-        return board.getWinningCoordinates();
     }
 
     return {
@@ -327,7 +319,7 @@ const ScreenController = (function (board) {
     }
 
     const restartScreen = function () {
-        Gameboard.restart();
+        Gameboard.cleanBoard();
         updateScreen();
         unmarkSlots();
     }
