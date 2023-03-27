@@ -149,24 +149,15 @@ const Gameboard = (function () {
 })()
 
 function Player(name, symbol) {
-    let won = false;
     function getName() {
         return name;
     }
     function getSymbol() {
         return symbol;
     }
-    function assignWinner() {
-        won = true;
-    }
-    function isWinner() {
-        return won;
-    }
     return {
         getName,
-        getSymbol,
-        assignWinner,
-        isWinner
+        getSymbol
     }
 }
 
@@ -191,7 +182,6 @@ function Game(board, playerOne, playerTwo) {
     function updateGameState() {
         remainingTurns -= 1;
         if (board.getWinningCoordinates().length !== 0){
-            getActivePlayer().assignWinner();
             isGameOver = true;
             return;
         } 
