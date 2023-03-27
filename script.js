@@ -217,16 +217,6 @@ function Game(board, playerOne, playerTwo) {
     }
 
     // Public Method
-    function getWinner() {
-        if (playerOne.isWinner()) {
-            return playerOne;
-        }
-        if (playerTwo.isWinner()) {
-            return playerTwo;
-        }
-    }
-
-    // Public Method
     function isTie() {
         return isGameTied;
     }
@@ -245,7 +235,6 @@ function Game(board, playerOne, playerTwo) {
         playTurn,
         getActivePlayer,
         getWinningCoordinates,
-        getWinner,
         isTie,
         isOver
     };
