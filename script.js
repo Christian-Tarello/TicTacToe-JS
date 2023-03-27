@@ -371,10 +371,10 @@ const ScreenController = (function (board) {
         }
     }
     
-    // || Final Setup ||
-    // Initialize Game
+    // || Handler Setup ||
+    // Setting slot handlers
     slotElements.forEach((element) => element.addEventListener("click", slotClickHandler));
-    restartScreen();
+    
 
     // Setting action handlers
     settingsButton.addEventListener("click", settingsClickHandler);
@@ -383,5 +383,8 @@ const ScreenController = (function (board) {
     // Validation Handlers
     symbolOneElement.addEventListener("change", symbolInputHandler);
     symbolTwoElement.addEventListener("change", symbolInputHandler);
+
+    // || Final Setup ||
+    restartScreen();
 
 })(Gameboard)
