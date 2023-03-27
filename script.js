@@ -253,7 +253,7 @@ function Game(board, playerOne, playerTwo) {
 
 const ScreenController = (function (board) {
     // || Initial Setup ||
-    let gameInstance = Game(board, Player("1", "x"), Player("2", "o"));
+    let gameInstance = Game(board, Player("Player One", "x"), Player("Player Two", "o"));
 
     // || Selects ||
     // Selection Group: Component 
@@ -268,6 +268,7 @@ const ScreenController = (function (board) {
 
     // Selection Group: Content 
     const contentElement = ticTacToeElement.querySelector(".ticTacToe-content");
+    const announcerElement = ticTacToeElement.querySelector(".ticTacToe-announcer");
 
     // Selection Group: Board 
     const boardElement = ticTacToeElement.querySelector(".ticTacToe-board");
@@ -285,6 +286,11 @@ const ScreenController = (function (board) {
 
     const clearActiveSymbol = function () {
         boardElement.dataset.activesymbol = "";
+    }
+
+    // Function Group: Setting Announcements
+    const setAnnouncement = function (announcement) {
+        announcerElement.dataset.announcement = announcement;
     }
     
     // Function Group: Marking Slots
@@ -315,6 +321,7 @@ const ScreenController = (function (board) {
         updateScreen();
         setActiveSymbol();
         unmarkSlots();
+        setAnnouncement(`It's ${gameInstance.getActivePlayer().getName()} Turn!`);
     }
 
     // Function Group: Toggle Settings
@@ -332,6 +339,9 @@ const ScreenController = (function (board) {
     const handleGameOver = function () {
         if (!gameInstance.isTie()) {
             markWinningSlots();
+            setAnnouncement(`${gameInstance.getActivePlayer().getName()} Wins!`);
+        } else {
+            setAnnouncement(`It's A Tie!`);
         }
     };
 
@@ -347,6 +357,7 @@ const ScreenController = (function (board) {
             clearActiveSymbol();
         } else {
             setActiveSymbol();
+            setAnnouncement(`It's ${gameInstance.getActivePlayer().getName()} Turn!`);
         }
     };
 
@@ -378,8 +389,7 @@ const ScreenController = (function (board) {
     // || Final Setup ||
     // Initialize Game
     slotElements.forEach((element) => element.addEventListener("click", slotClickHandler));
-    updateScreen();
-    setActiveSymbol();
+    restartScreen();
 
     // Setting action handlers
     settingsButton.addEventListener("click", settingsClickHandler);
