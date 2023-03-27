@@ -286,23 +286,6 @@ const ScreenController = (function (board) {
         });
     }
 
-    // Function Group: Screen Updating
-    const updateScreen = function () {
-        board.getBoard().forEach((row, y) => {
-            row.forEach((symbol, x) => {
-                screenBoard[y][x].dataset.symbol = symbol;
-            })
-        })
-    };
-
-    const restartScreen = function () {
-        Gameboard.restart();
-        updateScreen();
-        setActiveSymbol();
-        unmarkSlots();
-        setAnnouncement(`It's ${gameInstance.getActivePlayer().getName()} Turn!`);
-    }
-
     // Function Group: Toggle Settings
     const showGameScreen = function () {
         formWrapperElement.classList.add("ticTacToe-formWrapper--hidden");
@@ -314,30 +297,53 @@ const ScreenController = (function (board) {
         contentElement.classList.toggle("ticTacToe-content--hidden");
     }
 
-    // Function Group: Game Over
-    const handleGameOver = function () {
-        if (!gameInstance.isTie()) {
-            markWinningSlots();
-            setAnnouncement(`${gameInstance.getActivePlayer().getName()} Wins!`);
-        } else {
-            setAnnouncement(`It's A Tie!`);
-        }
+    // Function Group: Screen Updating
+    const updateBoard = function () {
+        board.getBoard().forEach((row, y) => {
+            row.forEach((symbol, x) => {
+                screenBoard[y][x].dataset.symbol = symbol;
+            })
+        })
     };
+
+    const updateState = function () {
+        if (gameInstance.isOver()) {
+            if (!gameInstance.isTie()) {
+                markWinningSlots();
+                setAnnouncement(`${gameInstance.getActivePlayer().getName()} Wins!`);
+            } else {
+                setAnnouncement(`It's A Tie!`);
+            }
+            clearActiveSymbol();
+        } else {
+            setAnnouncement(`It's ${gameInstance.getActivePlayer().getName()} Turn!`);
+            setActiveSymbol();
+        }
+    }
+
+    const updateScreen = function () {
+        updateBoard();
+        updateState();
+    }
+
+    const restartScreen = function () {
+        Gameboard.restart();
+        updateScreen();
+        unmarkSlots();
+    }
+
+    // Function Group: Turn
+    const handleTurn = function (x, y) {
+        gameInstance.playTurn(x, y);
+        updateScreen();
+    }
 
     // || Handlers ||
     // Handler Group: Content
     const slotClickHandler = function (e) {
         const x = parseInt(e.target.dataset.x, 10);
         const y = parseInt(e.target.dataset.y, 10);
-        gameInstance.playTurn(x, y);
-        updateScreen();
-        if (gameInstance.isOver()) {
-            handleGameOver();
-            clearActiveSymbol();
-        } else {
-            setActiveSymbol();
-            setAnnouncement(`It's ${gameInstance.getActivePlayer().getName()} Turn!`);
-        }
+        handleTurn(x, y);
     };
 
     // Handler Group: Header
