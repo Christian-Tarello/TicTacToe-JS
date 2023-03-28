@@ -64,16 +64,23 @@ const Gameboard = (function () {
     }
 })()
 
-function Player(name, symbol) {
+function Player(name, symbol, isPlayerBot = false) {
+    function isBot() {
+        return isPlayerBot;
+    }
+    
     function getName() {
         return name;
     }
+
     function getSymbol() {
         return symbol;
     }
+
     return {
         getName,
-        getSymbol
+        getSymbol,
+        isBot
     }
 }
 
@@ -222,7 +229,35 @@ function Game(boardObj, playerOne, playerTwo) {
     };
 }
 
-const ScreenController = (function (board) {
+const Minimax = (function () {
+    function getAvailableCoordinatePairs(board) {
+        const availableSlots = [];
+        board.forEach((row, y) => {
+            row.forEach((symbol, x) => {
+                if (board[y][x] === "") {
+                    availableSlots.push([x,y])
+                }
+            })
+        })
+        return availableSlots;
+    }
+
+    function computeMove(board, botSymbol) {
+        const availableSlots = getAvailableCoordinatePairs(board);
+        if (!availableSlots) {
+            return [];
+        }
+        const random = Math.floor(Math.random() * availableSlots.length);
+        console.log(availableSlots, availableSlots[random]);
+        return availableSlots[random]
+    }
+
+    
+
+    return {computeMove};
+})();
+
+const ScreenController = (function (board, botModule) {
     // || Initial Setup ||
     let gameInstance = Game(board, Player("Player One", "x"), Player("Player Two", "o"));
 
@@ -330,12 +365,23 @@ const ScreenController = (function (board) {
         updateScreen();
     }
 
+    const handleBotTurn = function() {
+        const currentPlayer = gameInstance.getActivePlayer();
+        if (currentPlayer.isBot() && !gameInstance.isOver()) {
+            const coordinatePair = botModule.computeMove(Gameboard.getBoard(), currentPlayer.getSymbol());
+            if (coordinatePair) {
+                handleTurn(...coordinatePair);
+            }
+        }
+    }
+
     // || Handlers ||
     // Handler Group: Content
     const slotClickHandler = function (e) {
         const x = parseInt(e.target.dataset.x, 10);
         const y = parseInt(e.target.dataset.y, 10);
         handleTurn(x, y);
+        handleBotTurn();
     };
 
     // Handler Group: Header
@@ -351,6 +397,7 @@ const ScreenController = (function (board) {
         gameInstance = Game(Gameboard, playerOne, playerTwo);
         restartScreen();
         showGameScreen();
+        handleBotTurn()
     }
 
     const symbolInputHandler = function (e) {
@@ -379,4 +426,4 @@ const ScreenController = (function (board) {
     // || Final Setup ||
     restartScreen();
 
-})(Gameboard)
+})(Gameboard, Minimax);
