@@ -375,6 +375,13 @@ const ScreenController = (function (board, botModule) {
         }
     }
 
+    // Function Group: Prepare Game
+    const prepareGame = function() {
+        restartScreen();
+        showGameScreen();
+        handleBotTurn();
+    }
+
     // || Handlers ||
     // Handler Group: Content
     const slotClickHandler = function (e) {
@@ -395,9 +402,7 @@ const ScreenController = (function (board, botModule) {
         const playerOne = Player(data.get("playerOne"), (data.get("symbolOne") ? "x" : "o"));
         const playerTwo = Player(data.get("playerTwo"), (data.get("symbolTwo") ? "x" : "o"));
         gameInstance = Game(Gameboard, playerOne, playerTwo);
-        restartScreen();
-        showGameScreen();
-        handleBotTurn()
+        prepareGame();
     }
 
     const symbolInputHandler = function (e) {
@@ -424,6 +429,6 @@ const ScreenController = (function (board, botModule) {
     symbolTwoElement.addEventListener("change", symbolInputHandler);
 
     // || Final Setup ||
-    restartScreen();
+    prepareGame();
 
 })(Gameboard, Minimax);
