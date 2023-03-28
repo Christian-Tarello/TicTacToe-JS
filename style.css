@@ -156,13 +156,13 @@ body {
     gap: 0.5rem;
 }
 
-.ticTacToe-field label {
+.ticTacToe-label {
     position: absolute;
     color: transparent;
     user-select: none;
 }
 
-.ticTacToe-field input[type="text"] {
+.ticTacToe-text {
     border: 0px;
     border-bottom: 1px #EEE solid;
     background-color: #3A678F;
@@ -172,35 +172,35 @@ body {
     border-radius: 2px;
 }
 
-.ticTacToe-field input[type="text"]:invalid {
+.ticTacToe-text:invalid {
     border-color: red;
 }
 
-.ticTacToe-field input[type="text"]::placeholder {
+.ticTacToe-text::placeholder {
     color: inherit;
     opacity: 0.7;
 }
 
-.ticTacToe-field input[type="text"]:focus {
+.ticTacToe-text:focus {
     outline: transparent;
     filter: brightness(120%);
 }
 
-.ticTacToe-field input[type="checkbox"] {
+.ticTacToe-checkbox {
     appearance: none;
     height: 1rem;
     width: 1rem;
 }
 
-.ticTacToe-field input[type="checkbox"]:checked {
+.ticTacToe-checkbox--symbol:checked {
     background-image: url("./images/cross.svg");
 }
 
-.ticTacToe-field input[type="checkbox"] {
+.ticTacToe-checkbox--symbol {
     background-image: url("./images/nought.svg");
 }
 
-.ticTacToe-field input[type="checkbox"]:invalid {
+.ticTacToe-checkbox--symbol:invalid {
     filter: sepia(1) hue-rotate(299deg) saturate(3000%);
 }
 
