@@ -64,7 +64,7 @@ const Gameboard = (function () {
     }
 })()
 
-function Player(name, symbol, isPlayerBot = false) {
+function Player(name, symbol, isPlayerBot, botDifficulty) {
     function isBot() {
         return isPlayerBot;
     }
@@ -77,10 +77,15 @@ function Player(name, symbol, isPlayerBot = false) {
         return symbol;
     }
 
+    function getBotDifficulty(){
+        return botDifficulty;
+    }
+
     return {
         getName,
         getSymbol,
-        isBot
+        isBot,
+        getBotDifficulty
     }
 }
 
@@ -399,8 +404,18 @@ const ScreenController = (function (board, botModule) {
     const submitClickHandler = function (e) {
         e.preventDefault();
         const data = new FormData(e.target);
-        const playerOne = Player(data.get("playerOne"), (data.get("symbolOne") ? "x" : "o"));
-        const playerTwo = Player(data.get("playerTwo"), (data.get("symbolTwo") ? "x" : "o"));
+        const playerOne = Player(
+            data.get("playerOne"),
+            (data.get("symbolOne") ? "x" : "o"),
+            !!data.get("botOne"),
+            data.get("botOneLevel")
+            );
+        const playerTwo = Player(
+            data.get("playerTwo"),
+            (data.get("symbolTwo") ? "x" : "o"),
+            !!data.get("botTwo"),
+            data.get("botTwoLevel")
+            );
         gameInstance = Game(Gameboard, playerOne, playerTwo);
         prepareGame();
     }
