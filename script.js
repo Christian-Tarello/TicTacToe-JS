@@ -274,8 +274,7 @@ const ScreenController = (function (board, botModule) {
     const formElement = ticTacToeElement.querySelector(".ticTacToe-form");
     const formWrapperElement = ticTacToeElement.querySelector(".ticTacToe-formWrapper");
     const settingsButton = ticTacToeElement.querySelector('.ticTacToe-action[data-action="settings"]');
-    const symbolOneElement = ticTacToeElement.querySelector("#symbolOne");
-    const symbolTwoElement = ticTacToeElement.querySelector("#symbolTwo");
+    const symbolCheckboxElements = [...ticTacToeElement.querySelectorAll(".ticTacToe-checkbox--symbol")];
     const botCheckboxElements = [...ticTacToeElement.querySelectorAll(".ticTacToe-checkbox--bot")];
 
     // Selection Group: Content 
@@ -421,21 +420,22 @@ const ScreenController = (function (board, botModule) {
         prepareGame();
     }
 
-    const symbolInputHandler = function (e) {
-        if (symbolOneElement.checked === symbolTwoElement.checked) {
-            symbolOneElement.setCustomValidity("Same symbol not allowed.");
-            symbolTwoElement.setCustomValidity("Same symbol not allowed.");
+    const symbolInputHandler = function () {
+        if (
+            symbolCheckboxElements.every((element) => element.checked) ||
+            symbolCheckboxElements.every((element) => !element.checked)
+        ){
+            symbolCheckboxElements.forEach((element) => element.setCustomValidity("Same symbol not allowed."));
         } else {
-            symbolOneElement.setCustomValidity("");
-            symbolTwoElement.setCustomValidity("");
+            symbolCheckboxElements.forEach((element) => element.setCustomValidity(""));
         }
     }
 
-    const botInputHandler = function (e) {
+    const botInputHandler = function () {
         if (botCheckboxElements.every((element) => element.checked)){
-            botCheckboxElements.forEach((element) => element.setCustomValidity("Bot against bot not allowed."))
+            botCheckboxElements.forEach((element) => element.setCustomValidity("Bot against bot not allowed."));
         } else {
-            botCheckboxElements.forEach((element) => element.setCustomValidity(""))
+            botCheckboxElements.forEach((element) => element.setCustomValidity(""));
         }
     }
     
@@ -448,9 +448,8 @@ const ScreenController = (function (board, botModule) {
     settingsButton.addEventListener("click", settingsClickHandler);
     formElement.addEventListener("submit", submitClickHandler);
 
-    // Validation Handlers
-    symbolOneElement.addEventListener("change", symbolInputHandler);
-    symbolTwoElement.addEventListener("change", symbolInputHandler);
+    // Validation Handlers0
+    symbolCheckboxElements.forEach((element) => element.addEventListener("change", symbolInputHandler));
     botCheckboxElements.forEach((element) => element.addEventListener("change", botInputHandler));
 
     // || Final Setup ||
