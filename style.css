@@ -154,6 +154,12 @@ body {
     padding: 0.5rem;
     display: flex;
     gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.ticTacToe-field {
+    display: flex;
+    gap: 0.5rem;
 }
 
 .ticTacToe-label {
@@ -162,17 +168,19 @@ body {
     user-select: none;
 }
 
-.ticTacToe-text {
+.ticTacToe-text,
+.ticTacToe-select {
     border: 0px;
     border-bottom: 1px #EEE solid;
     background-color: #3A678F;
     color: inherit;
     font-family: inherit;
     padding: 2px;
-    border-radius: 2px;
+    border-radius: 2px 2px 0 0;
 }
 
-.ticTacToe-text:invalid {
+.ticTacToe-text:invalid,
+.ticTacToe-select:invalid {
     border-color: red;
 }
 
@@ -181,7 +189,8 @@ body {
     opacity: 0.7;
 }
 
-.ticTacToe-text:focus {
+.ticTacToe-text:focus,
+.ticTacToe-select:focus {
     outline: transparent;
     filter: brightness(120%);
 }
@@ -202,6 +211,26 @@ body {
 
 .ticTacToe-checkbox--symbol:invalid {
     filter: sepia(1) hue-rotate(299deg) saturate(3000%);
+}
+
+.ticTacToe-checkbox--bot:checked {
+    background-image: url("./images/robot.svg");
+}
+
+.ticTacToe-checkbox--bot {
+    background-image: url("./images/robot-off.svg");
+}
+
+.ticTacToe-checkbox--bot:invalid {
+    filter: sepia(1) hue-rotate(299deg) saturate(3000%);
+}
+
+.ticTacToe-select--botLevel {
+    display: none;
+}
+
+.ticTacToe-checkbox--bot:checked+.ticTacToe-select--botLevel {
+    display: initial;
 }
 
 .ticTacToe-actions {
