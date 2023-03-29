@@ -276,6 +276,7 @@ const ScreenController = (function (board, botModule) {
     const settingsButton = ticTacToeElement.querySelector('.ticTacToe-action[data-action="settings"]');
     const symbolOneElement = ticTacToeElement.querySelector("#symbolOne");
     const symbolTwoElement = ticTacToeElement.querySelector("#symbolTwo");
+    const botCheckboxElements = [...ticTacToeElement.querySelectorAll(".ticTacToe-checkbox--bot")];
 
     // Selection Group: Content 
     const contentElement = ticTacToeElement.querySelector(".ticTacToe-content");
@@ -429,6 +430,14 @@ const ScreenController = (function (board, botModule) {
             symbolTwoElement.setCustomValidity("");
         }
     }
+
+    const botInputHandler = function (e) {
+        if (botCheckboxElements.every((element) => element.checked)){
+            botCheckboxElements.forEach((element) => element.setCustomValidity("Bot against bot not allowed."))
+        } else {
+            botCheckboxElements.forEach((element) => element.setCustomValidity(""))
+        }
+    }
     
     // || Handler Setup ||
     // Setting slot handlers
@@ -442,6 +451,7 @@ const ScreenController = (function (board, botModule) {
     // Validation Handlers
     symbolOneElement.addEventListener("change", symbolInputHandler);
     symbolTwoElement.addEventListener("change", symbolInputHandler);
+    botCheckboxElements.forEach((element) => element.addEventListener("change", botInputHandler));
 
     // || Final Setup ||
     prepareGame();
