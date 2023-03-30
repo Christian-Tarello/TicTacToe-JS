@@ -235,6 +235,12 @@ function Game(boardObj, playerOne, playerTwo) {
 }
 
 const Minimax = (function () {
+    let boardSize;
+    let winningRowCoordinates;
+    let winningColumnCoordinates;
+    let winningDiagonalCoordinates;
+    let winningCoordinates;
+
     function getAvailableCoordinatePairs(board) {
         const availableSlots = [];
         board.forEach((row, y) => {
@@ -247,7 +253,7 @@ const Minimax = (function () {
         return availableSlots;
     }
 
-    function computeMove(board, botSymbol) {
+    function copycomputeMove(board, botSymbol, difficulty) {
         const availableSlots = getAvailableCoordinatePairs(board);
         if (!availableSlots) {
             return [];
@@ -257,9 +263,75 @@ const Minimax = (function () {
         return availableSlots[random]
     }
 
-    
+    function generateRowWinningCoordinates() {
+        winningRowCoordinates = [];
+        for (let i = 0; i < boardSize; i+=1) {
+            winningRowCoordinates.push([])
+            for (let j = 0; j < boardSize; j+=1) {
+                winningRowCoordinates[i].push([j,i])
+            }
+        }
+    }
 
-    return {computeMove};
+    function generateColumnWinningCoordinates() {
+        winningColumnCoordinates = [];
+        for (let i = 0; i < boardSize; i+=1) {
+            winningColumnCoordinates.push([])
+            for (let j = 0; j < boardSize; j+=1) {
+                winningColumnCoordinates[i].push([i,j])
+            }
+        }
+    }
+
+    function generateDiagonalWinningCoordinates() {
+        const forwardDiagonalCoordinates = [];
+        const backwardDiagonalCoordinates = [];
+        for (let i = 0; i < boardSize; i+=1) {
+            forwardDiagonalCoordinates.push([(boardSize-1)-i,i]);
+            backwardDiagonalCoordinates.push([i,i]);
+        }
+        winningDiagonalCoordinates = [forwardDiagonalCoordinates, backwardDiagonalCoordinates]
+    }
+
+    function generateWinningCoordinates(size) {
+        if (size !== boardSize) {
+            boardSize = size;
+            generateRowWinningCoordinates();
+            generateColumnWinningCoordinates();
+            generateDiagonalWinningCoordinates();
+            winningCoordinates = [
+                ...winningRowCoordinates,
+                ...winningColumnCoordinates,
+                ...winningDiagonalCoordinates
+            ]
+        }
+    }
+
+    function checkForWin(board, symbol) {
+        let win = false;
+        winningCoordinates.forEach((coordinateCombination) => {
+            if (!win) {
+                win = coordinateCombination.every((coordinatePair) => 
+                    board[coordinatePair[1]][coordinatePair[0]] === symbol
+                )
+            }
+        })
+        return win;
+    }
+
+    function computeMove(board, botSymbol, difficulty) {
+        const availableSlots = getAvailableCoordinatePairs(board);
+        if (!availableSlots) {
+            return [];
+        }
+        generateWinningCoordinates(board.length);
+
+        const random = Math.floor(Math.random() * availableSlots.length);
+        return availableSlots[random]
+    }
+   
+
+    return {computeMove, generateWinningCoordinates, checkForWin};
 })();
 
 const ScreenController = (function (board, botModule) {
@@ -373,7 +445,7 @@ const ScreenController = (function (board, botModule) {
     const handleBotTurn = function() {
         const currentPlayer = gameInstance.getActivePlayer();
         if (currentPlayer.isBot() && !gameInstance.isOver()) {
-            const coordinatePair = botModule.computeMove(Gameboard.getBoard(), currentPlayer.getSymbol());
+            const coordinatePair = botModule.computeMove(Gameboard.getBoard(), currentPlayer.getSymbol(), currentPlayer.getBotDifficulty());
             if (coordinatePair) {
                 handleTurn(...coordinatePair);
             }
