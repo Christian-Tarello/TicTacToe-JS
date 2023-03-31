@@ -199,6 +199,9 @@ body {
     appearance: none;
     height: 1rem;
     width: 1rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 .ticTacToe-checkbox--symbol:checked {
@@ -247,6 +250,7 @@ body {
     font-family: inherit;
     font-weight: 700;
     font-size: 1.2rem;
+    cursor: pointer;
 }
 
 .ticTacToe-action:hover {
@@ -259,4 +263,12 @@ body {
 
 .ticTacToe-action--expand {
     flex: 1 1 auto;
+}
+
+.ticTacToe-action--settings {
+    background-image: url("./images/cog.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    width: 2rem;
 }
