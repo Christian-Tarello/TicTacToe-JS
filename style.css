@@ -77,7 +77,6 @@ body {
     width: 90%;
     border-radius: 10%;
     border: 0px;
-    cursor: pointer;
     background-color: #57a3c9;
     background-position: center;
     background-repeat: no-repeat;
@@ -100,11 +99,15 @@ body {
 .ticTacToe-board[data-activeSymbol="x"] .ticTacToe-slot[data-symbol=""]:hover{
     background-image: url(images/cross.svg);
     background-size: 50%;
+    cursor: pointer;
+    cursor: crosshair;
 }
 
 .ticTacToe-board[data-activeSymbol="o"] .ticTacToe-slot[data-symbol=""]:hover{
     background-image: url(images/nought.svg);
     background-size: 50%;
+    cursor: pointer;
+    cursor: crosshair;
 }
 
 .ticTacToe-slot--win {
