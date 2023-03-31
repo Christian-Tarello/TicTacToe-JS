@@ -253,16 +253,6 @@ const Minimax = (function () {
         return availableSlots;
     }
 
-    function copycomputeMove(board, botSymbol, difficulty) {
-        const availableSlots = getAvailableCoordinatePairs(board);
-        if (!availableSlots) {
-            return [];
-        }
-        const random = Math.floor(Math.random() * availableSlots.length);
-        console.log(availableSlots, availableSlots[random]);
-        return availableSlots[random]
-    }
-
     function generateRowWinningCoordinates() {
         winningRowCoordinates = [];
         for (let i = 0; i < boardSize; i+=1) {
@@ -319,19 +309,72 @@ const Minimax = (function () {
         return win;
     }
 
-    function computeMove(board, botSymbol, difficulty) {
-        const availableSlots = getAvailableCoordinatePairs(board);
-        if (!availableSlots) {
-            return [];
+    function difficultyToAccuracy(difficulty) {
+        const accuracies = {
+            "easy" : 0,
+            "medium" : 70,
+            "hard" : 90,
+            "unbeatable": 100
         }
-        generateWinningCoordinates(board.length);
+        return accuracies[difficulty.toLowerCase()];
+    }
 
-        const random = Math.floor(Math.random() * availableSlots.length);
-        return availableSlots[random]
+    function getMoveIndex(board, botSymbol, oppositeSymbol, depth, switchSymbol) {
+        const availableSlots = getAvailableCoordinatePairs(board);
+        if (!availableSlots.length) {
+            return 0;
+        }
+        let index = (switchSymbol) ? Infinity: -Infinity;
+        const currentSymbol = (switchSymbol) ? oppositeSymbol : botSymbol;
+        for (let i = 0; i < availableSlots.length; i+=1) {
+            const coordinatePair = availableSlots[i];
+            board[coordinatePair[1]][coordinatePair[0]] = currentSymbol;
+            if (checkForWin(board, currentSymbol)) {
+                board[coordinatePair[1]][coordinatePair[0]] = "";
+                if (currentSymbol === botSymbol) {
+                    return 10-depth;
+                }
+                return -10-depth;
+            }
+
+            const result = getMoveIndex(board, botSymbol, oppositeSymbol, depth+1, !switchSymbol);
+            board[coordinatePair[1]][coordinatePair[0]] = "";
+            if ((result > index && !switchSymbol) || (result < index && switchSymbol)) {
+                index = result;
+            }
+        }
+        return index;
+    }
+
+    function computeMove(board, botSymbol, oppositeSymbol, difficulty) {
+        generateWinningCoordinates(board.length);
+        const availableSlots = getAvailableCoordinatePairs(board);
+        let highestIndex = -Infinity;
+        let index;
+        let bestMoveCoordinates;
+        availableSlots.forEach((coordinatePair) => {
+            board[coordinatePair[1]][coordinatePair[0]] = botSymbol;
+            if (checkForWin(board, botSymbol)){
+                index = 10;
+            } else {
+                index = getMoveIndex(board, botSymbol, oppositeSymbol, 1, true);
+            }
+            board[coordinatePair[1]][coordinatePair[0]] = "";
+            if (index > highestIndex) {
+                highestIndex = index;
+                bestMoveCoordinates = coordinatePair;
+            }
+        })
+
+        const accuracy = difficultyToAccuracy(difficulty);
+        const random = Math.floor(Math.random() * 100);
+        if (random >= accuracy) {
+            return availableSlots[Math.floor(Math.random() * availableSlots.length)]
+        }
+        return bestMoveCoordinates;
     }
    
-
-    return {computeMove, generateWinningCoordinates, checkForWin};
+    return {computeMove};
 })();
 
 const ScreenController = (function (board, botModule) {
@@ -445,7 +488,12 @@ const ScreenController = (function (board, botModule) {
     const handleBotTurn = function() {
         const currentPlayer = gameInstance.getActivePlayer();
         if (currentPlayer.isBot() && !gameInstance.isOver()) {
-            const coordinatePair = botModule.computeMove(Gameboard.getBoard(), currentPlayer.getSymbol(), currentPlayer.getBotDifficulty());
+            const coordinatePair = botModule.computeMove(
+                Gameboard.getBoard(),
+                currentPlayer.getSymbol(),
+                (currentPlayer.getSymbol() === "x" ? "o" : "x"),
+                currentPlayer.getBotDifficulty()
+            );
             if (coordinatePair) {
                 handleTurn(...coordinatePair);
             }
