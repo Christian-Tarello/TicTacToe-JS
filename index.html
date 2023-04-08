@@ -1,106 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
-    <title>Tic Tac Toe JS</title>
-</head>
-<body>
-    <div class="bodyWrapper">
-        <div class="ticTacToe">
-            <div class="ticTacToe-header">
-                <div class="ticTacToe-title">TIC TAC TOE</div>
-                <form action="post" class="ticTacToe-form">
-                    <div class="ticTacToe-formWrapper ticTacToe-formWrapper--hidden">
-                        <fieldset class="ticTacToe-fieldset">
-                            <legend class="ticTacToe-legend">Player 1</legend>
-                            <ul class="ticTacToe-fieldList">
-                                <li class="ticTacToe-field">
-                                    <label class="ticTacToe-label" for="symbolOne">Symbol:</label>
-                                    <input class="ticTacToe-checkbox ticTacToe-checkbox--symbol" id="symbolOne" name="symbolOne" type="checkbox" checked>
-                                </li>
-                                <li class="ticTacToe-field">
-                                    <label class="ticTacToe-label" for="playerOne">Name:</label>
-                                    <input class="ticTacToe-text" id="playerOne" name="playerOne" type="text" placeholder="Name" value="Player One" maxlength="20" required>
-                                </li>
-                                <li class="ticTacToe-field">
-                                    <label class="ticTacToe-label" for="botOne">Bot?</label>
-                                    <input class="ticTacToe-checkbox ticTacToe-checkbox--bot" id="botOne" name="botOne" type="checkbox">
-                                    <select class="ticTacToe-select ticTacToe-select--botLevel" id="botOneLevel" name="botOneLevel">
-                                        <option value="easy">Easy</option>
-                                        <option value="medium">Medium</option>
-                                        <option value="hard">Hard</option>
-                                        <option value="unbeatable">Unbeatable</option>
-                                    </select>
-                                </li>
-                            </ul>
-                        </fieldset>
-                        <fieldset class="ticTacToe-fieldset">
-                            <legend class="ticTacToe-legend">Player 2</legend>
-                            <ul class="ticTacToe-fieldList">
-                                <li class="ticTacToe-field">
-                                    <label class="ticTacToe-label" for="symbolTwo">Symbol:</label>
-                                    <input class="ticTacToe-checkbox ticTacToe-checkbox--symbol" id="symbolTwo" name="symbolTwo" type="checkbox">
-                                </li>
-                                <li class="ticTacToe-field">
-                                    <label class="ticTacToe-label" for="playerTwo">Name:</label>
-                                    <input class="ticTacToe-text" id="playerTwo" name="playerTwo" type="text" placeholder="Name" value="Player Two" maxlength="20" required>
-                                </li>
-                                <li class="ticTacToe-field">
-                                    <label class="ticTacToe-label" for="botTwo">Bot?</label>
-                                    <input class="ticTacToe-checkbox ticTacToe-checkbox--bot" id="botTwo" name="botTwo" type="checkbox">
-                                    <select class="ticTacToe-select ticTacToe-select--botLevel" id="botTwoLevel" name="botTwoLevel">
-                                        <option value="easy">Easy</option>
-                                        <option value="medium">Medium</option>
-                                        <option value="hard">Hard</option>
-                                        <option value="unbeatable">Unbeatable</option>
-                                    </select>
-                                </li>
-                            </ul>
-                        </fieldset>
-                    </div>
-                    <div class="ticTacToe-actions">
-                        <button class="ticTacToe-action ticTacToe-action--expand" type="submit" data-action="submit">New Game</button>
-                        <button class="ticTacToe-action ticTacToe-action--settings" type="button" data-action="settings"></button>
-                    </div>
-                </form>
-            </div>
-            <div class="ticTacToe-content">
-                <div class="ticTacToe-announcer" data-announcement=""></div>
-                <div class="ticTacToe-board" data-activeSymbol="">
-                    <div class="ticTacToe-slotWrapper">
-                        <button type="button" class="ticTacToe-slot" data-x="0" data-y="0" data-symbol=""></button>
-                    </div>
-                    <div class="ticTacToe-slotWrapper">
-                        <button type="button" class="ticTacToe-slot" data-x="1" data-y="0" data-symbol=""></button>
-                    </div>
-                    <div class="ticTacToe-slotWrapper">
-                        <button type="button" class="ticTacToe-slot" data-x="2" data-y="0" data-symbol=""></button>
-                    </div>
-                    <div class="ticTacToe-slotWrapper">
-                        <button type="button" class="ticTacToe-slot" data-x="0" data-y="1" data-symbol=""></button>
-                    </div>
-                    <div class="ticTacToe-slotWrapper">
-                        <button type="button" class="ticTacToe-slot" data-x="1" data-y="1" data-symbol=""></button>
-                    </div>
-                    <div class="ticTacToe-slotWrapper">
-                        <button type="button" class="ticTacToe-slot" data-x="2" data-y="1" data-symbol=""></button>
-                    </div>
-                    <div class="ticTacToe-slotWrapper">
-                        <button type="button" class="ticTacToe-slot" data-x="0" data-y="2" data-symbol=""></button>
-                    </div>
-                    <div class="ticTacToe-slotWrapper">
-                        <button type="button" class="ticTacToe-slot" data-x="1" data-y="2" data-symbol=""></button>
-                    </div>
-                    <div class="ticTacToe-slotWrapper">
-                        <button type="button" class="ticTacToe-slot" data-x="2" data-y="2" data-symbol=""></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+		<script src="script.js" defer></script>
+		<title>Tic Tac Toe JS</title>
+	</head>
+	<body>
+		<div class="bodyWrapper">
+			<div class="ticTacToe">
+				<div class="ticTacToe-header">
+					<div class="ticTacToe-title">TIC TAC TOE</div>
+					<form action="post" class="ticTacToe-form">
+						<div
+							class="ticTacToe-formWrapper ticTacToe-formWrapper--hidden"
+						>
+							<fieldset class="ticTacToe-fieldset">
+								<legend class="ticTacToe-legend">
+									Player 1
+								</legend>
+								<ul class="ticTacToe-fieldList">
+									<li class="ticTacToe-field">
+										<label
+											class="ticTacToe-label"
+											for="symbolOne"
+											>Symbol:</label
+										>
+										<input
+											class="ticTacToe-checkbox ticTacToe-checkbox--symbol"
+											id="symbolOne"
+											name="symbolOne"
+											type="checkbox"
+											checked
+										/>
+									</li>
+									<li class="ticTacToe-field">
+										<label
+											class="ticTacToe-label"
+											for="playerOne"
+											>Name:</label
+										>
+										<input
+											class="ticTacToe-text"
+											id="playerOne"
+											name="playerOne"
+											type="text"
+											placeholder="Name"
+											value="Player One"
+											maxlength="20"
+											required
+										/>
+									</li>
+									<li class="ticTacToe-field">
+										<label
+											class="ticTacToe-label"
+											for="botOne"
+											>Bot?</label
+										>
+										<input
+											class="ticTacToe-checkbox ticTacToe-checkbox--bot"
+											id="botOne"
+											name="botOne"
+											type="checkbox"
+										/>
+										<select
+											class="ticTacToe-select ticTacToe-select--botLevel"
+											id="botOneLevel"
+											name="botOneLevel"
+										>
+											<option value="easy">Easy</option>
+											<option value="medium">
+												Medium
+											</option>
+											<option value="hard">Hard</option>
+											<option value="unbeatable">
+												Unbeatable
+											</option>
+										</select>
+									</li>
+								</ul>
+							</fieldset>
+							<fieldset class="ticTacToe-fieldset">
+								<legend class="ticTacToe-legend">
+									Player 2
+								</legend>
+								<ul class="ticTacToe-fieldList">
+									<li class="ticTacToe-field">
+										<label
+											class="ticTacToe-label"
+											for="symbolTwo"
+											>Symbol:</label
+										>
+										<input
+											class="ticTacToe-checkbox ticTacToe-checkbox--symbol"
+											id="symbolTwo"
+											name="symbolTwo"
+											type="checkbox"
+										/>
+									</li>
+									<li class="ticTacToe-field">
+										<label
+											class="ticTacToe-label"
+											for="playerTwo"
+											>Name:</label
+										>
+										<input
+											class="ticTacToe-text"
+											id="playerTwo"
+											name="playerTwo"
+											type="text"
+											placeholder="Name"
+											value="Player Two"
+											maxlength="20"
+											required
+										/>
+									</li>
+									<li class="ticTacToe-field">
+										<label
+											class="ticTacToe-label"
+											for="botTwo"
+											>Bot?</label
+										>
+										<input
+											class="ticTacToe-checkbox ticTacToe-checkbox--bot"
+											id="botTwo"
+											name="botTwo"
+											type="checkbox"
+										/>
+										<select
+											class="ticTacToe-select ticTacToe-select--botLevel"
+											id="botTwoLevel"
+											name="botTwoLevel"
+										>
+											<option value="easy">Easy</option>
+											<option value="medium">
+												Medium
+											</option>
+											<option value="hard">Hard</option>
+											<option value="unbeatable">
+												Unbeatable
+											</option>
+										</select>
+									</li>
+								</ul>
+							</fieldset>
+						</div>
+						<div class="ticTacToe-actions">
+							<button
+								class="ticTacToe-action ticTacToe-action--expand"
+								type="submit"
+								data-action="submit"
+							>
+								New Game
+							</button>
+							<button
+								class="ticTacToe-action ticTacToe-action--settings"
+								type="button"
+								data-action="settings"
+							></button>
+						</div>
+					</form>
+				</div>
+				<div class="ticTacToe-content">
+					<div class="ticTacToe-announcer" data-announcement=""></div>
+					<div class="ticTacToe-board" data-activeSymbol="">
+						<div class="ticTacToe-slotWrapper">
+							<button
+								type="button"
+								class="ticTacToe-slot"
+								data-x="0"
+								data-y="0"
+								data-symbol=""
+							></button>
+						</div>
+						<div class="ticTacToe-slotWrapper">
+							<button
+								type="button"
+								class="ticTacToe-slot"
+								data-x="1"
+								data-y="0"
+								data-symbol=""
+							></button>
+						</div>
+						<div class="ticTacToe-slotWrapper">
+							<button
+								type="button"
+								class="ticTacToe-slot"
+								data-x="2"
+								data-y="0"
+								data-symbol=""
+							></button>
+						</div>
+						<div class="ticTacToe-slotWrapper">
+							<button
+								type="button"
+								class="ticTacToe-slot"
+								data-x="0"
+								data-y="1"
+								data-symbol=""
+							></button>
+						</div>
+						<div class="ticTacToe-slotWrapper">
+							<button
+								type="button"
+								class="ticTacToe-slot"
+								data-x="1"
+								data-y="1"
+								data-symbol=""
+							></button>
+						</div>
+						<div class="ticTacToe-slotWrapper">
+							<button
+								type="button"
+								class="ticTacToe-slot"
+								data-x="2"
+								data-y="1"
+								data-symbol=""
+							></button>
+						</div>
+						<div class="ticTacToe-slotWrapper">
+							<button
+								type="button"
+								class="ticTacToe-slot"
+								data-x="0"
+								data-y="2"
+								data-symbol=""
+							></button>
+						</div>
+						<div class="ticTacToe-slotWrapper">
+							<button
+								type="button"
+								class="ticTacToe-slot"
+								data-x="1"
+								data-y="2"
+								data-symbol=""
+							></button>
+						</div>
+						<div class="ticTacToe-slotWrapper">
+							<button
+								type="button"
+								class="ticTacToe-slot"
+								data-x="2"
+								data-y="2"
+								data-symbol=""
+							></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>
