@@ -1,277 +1,276 @@
 *,
 :before,
 :after {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    height: 100vh;
+	margin: 0;
+	height: 100vh;
 }
 
 .bodyWrapper {
-    height: 100%;
-    background-color: #2F3E46;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	height: 100%;
+	background-color: #2f3e46;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .ticTacToe {
-    width: clamp(10rem, 85vw, 70vh);
-    background-color: #57a3c9;
-    font-family: 'Courier New', Courier, monospace;
-    padding: 1rem;
-    border-radius: 1rem;
+	width: clamp(10rem, 85vw, 70vh);
+	background-color: #57a3c9;
+	font-family: 'Courier New', Courier, monospace;
+	padding: 1rem;
+	border-radius: 1rem;
 }
 
 .ticTacToe,
 .ticTacToe-header,
-.ticTacToe-content{
-    display: grid;
-    gap: 0.5rem;
+.ticTacToe-content {
+	display: grid;
+	gap: 0.5rem;
 }
 
 .ticTacToe-content--hidden {
-    display: none;
+	display: none;
 }
 
 .ticTacToe-title {
-    color: #FFD43B;
-    font-weight: 700;
-    background-color: #3A678F;
-    text-align: center;
-    font-size: 2rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
+	color: #ffd43b;
+	font-weight: 700;
+	background-color: #3a678f;
+	text-align: center;
+	font-size: 2rem;
+	padding: 1rem;
+	border-radius: 0.5rem;
 }
 
 .ticTacToe-announcer {
-    background-color: #3A678F;
-    color: #EEE;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    text-align: center;
+	background-color: #3a678f;
+	color: #eee;
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+	text-align: center;
 }
 
 .ticTacToe-announcer::after {
-    content: attr(data-announcement);
+	content: attr(data-announcement);
 }
 
 .ticTacToe-board {
-    aspect-ratio: 1/1;
-    background-color: #3A678F;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1rem;
+	aspect-ratio: 1/1;
+	background-color: #3a678f;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 1rem;
 }
 
 .ticTacToe-slotWrapper {
-    background-color: #57a3c9;
-    display: grid;
-    place-items: center;
+	background-color: #57a3c9;
+	display: grid;
+	place-items: center;
 }
 
 .ticTacToe-slot {
-    height: 90%;
-    width: 90%;
-    border-radius: 10%;
-    border: 0px;
-    background-color: #57a3c9;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 80%;
-    padding: 0;
+	height: 90%;
+	width: 90%;
+	border-radius: 10%;
+	border: 0px;
+	background-color: #57a3c9;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 80%;
+	padding: 0;
 }
 
 .ticTacToe-slot:hover {
-    filter: brightness(110%);
+	filter: brightness(110%);
 }
 
-.ticTacToe-slot[data-symbol="x"] {
-    background-image: url(images/cross.svg);
+.ticTacToe-slot[data-symbol='x'] {
+	background-image: url(images/cross.svg);
 }
 
-.ticTacToe-slot[data-symbol="o"] {
-    background-image: url(images/nought.svg);
+.ticTacToe-slot[data-symbol='o'] {
+	background-image: url(images/nought.svg);
 }
 
-.ticTacToe-board[data-activeSymbol="x"] .ticTacToe-slot[data-symbol=""]:hover{
-    background-image: url(images/cross.svg);
-    background-size: 50%;
-    cursor: pointer;
-    cursor: crosshair;
+.ticTacToe-board[data-activeSymbol='x'] .ticTacToe-slot[data-symbol='']:hover {
+	background-image: url(images/cross.svg);
+	background-size: 50%;
+	cursor: pointer;
+	cursor: crosshair;
 }
 
-.ticTacToe-board[data-activeSymbol="o"] .ticTacToe-slot[data-symbol=""]:hover{
-    background-image: url(images/nought.svg);
-    background-size: 50%;
-    cursor: pointer;
-    cursor: crosshair;
+.ticTacToe-board[data-activeSymbol='o'] .ticTacToe-slot[data-symbol='']:hover {
+	background-image: url(images/nought.svg);
+	background-size: 50%;
+	cursor: pointer;
+	cursor: crosshair;
 }
 
 .ticTacToe-slot--win {
-    background-color: #008020;
+	background-color: #008020;
 }
 
-
 .ticTacToe-form {
-    color: #EEE;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+	color: #eee;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 }
 
 .ticTacToe-formWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 }
 
 .ticTacToe-formWrapper--hidden {
-    display: none;
+	display: none;
 }
 
 .ticTacToe-fieldset {
-    position: relative;
-    padding: 1rem;
-    padding-top: 2rem;
-    border-radius: 1rem;
-    margin: 0;
-    border: 0px;
-    background-color: #3A678F;
+	position: relative;
+	padding: 1rem;
+	padding-top: 2rem;
+	border-radius: 1rem;
+	margin: 0;
+	border: 0px;
+	background-color: #3a678f;
 }
 
 .ticTacToe-legend {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    font-weight: 700;
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
+	font-weight: 700;
 }
 
 .ticTacToe-fieldList {
-    position: relative;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    padding: 0.5rem;
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
+	position: relative;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	padding: 0.5rem;
+	display: flex;
+	gap: 0.5rem;
+	flex-wrap: wrap;
 }
 
 .ticTacToe-field {
-    display: flex;
-    gap: 0.5rem;
+	display: flex;
+	gap: 0.5rem;
 }
 
 .ticTacToe-label {
-    position: absolute;
-    color: transparent;
-    user-select: none;
+	position: absolute;
+	color: transparent;
+	user-select: none;
 }
 
 .ticTacToe-text,
 .ticTacToe-select {
-    border: 0px;
-    border-bottom: 1px #EEE solid;
-    background-color: #3A678F;
-    color: inherit;
-    font-family: inherit;
-    padding: 2px;
-    border-radius: 2px 2px 0 0;
+	border: 0px;
+	border-bottom: 1px #eee solid;
+	background-color: #3a678f;
+	color: inherit;
+	font-family: inherit;
+	padding: 2px;
+	border-radius: 2px 2px 0 0;
 }
 
 .ticTacToe-text:invalid,
 .ticTacToe-select:invalid {
-    border-color: red;
+	border-color: red;
 }
 
 .ticTacToe-text::placeholder {
-    color: inherit;
-    opacity: 0.7;
+	color: inherit;
+	opacity: 0.7;
 }
 
 .ticTacToe-text:focus,
 .ticTacToe-select:focus {
-    outline: transparent;
-    filter: brightness(120%);
+	outline: transparent;
+	filter: brightness(120%);
 }
 
 .ticTacToe-checkbox {
-    appearance: none;
-    height: 1rem;
-    width: 1rem;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100%;
+	appearance: none;
+	height: 1rem;
+	width: 1rem;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%;
 }
 
 .ticTacToe-checkbox--symbol:checked {
-    background-image: url("./images/cross.svg");
+	background-image: url('./images/cross.svg');
 }
 
 .ticTacToe-checkbox--symbol {
-    background-image: url("./images/nought.svg");
+	background-image: url('./images/nought.svg');
 }
 
 .ticTacToe-checkbox--symbol:invalid {
-    filter: sepia(1) hue-rotate(299deg) saturate(3000%);
+	filter: sepia(1) hue-rotate(299deg) saturate(3000%);
 }
 
 .ticTacToe-checkbox--bot:checked {
-    background-image: url("./images/robot.svg");
+	background-image: url('./images/robot.svg');
 }
 
 .ticTacToe-checkbox--bot {
-    background-image: url("./images/robot-off.svg");
+	background-image: url('./images/robot-off.svg');
 }
 
 .ticTacToe-checkbox--bot:invalid {
-    filter: sepia(1) hue-rotate(299deg) saturate(3000%);
+	filter: sepia(1) hue-rotate(299deg) saturate(3000%);
 }
 
 .ticTacToe-select--botLevel {
-    display: none;
+	display: none;
 }
 
-.ticTacToe-checkbox--bot:checked+.ticTacToe-select--botLevel {
-    display: initial;
+.ticTacToe-checkbox--bot:checked + .ticTacToe-select--botLevel {
+	display: initial;
 }
 
 .ticTacToe-actions {
-    display: flex;
-    gap: 0.5rem;
+	display: flex;
+	gap: 0.5rem;
 }
 
 .ticTacToe-action {
-    background-color: #3A678F;
-    padding: 0.5rem;
-    border: 0px;
-    border-radius: 0.5rem;
-    color: inherit;
-    font-family: inherit;
-    font-weight: 700;
-    font-size: 1.2rem;
-    cursor: pointer;
+	background-color: #3a678f;
+	padding: 0.5rem;
+	border: 0px;
+	border-radius: 0.5rem;
+	color: inherit;
+	font-family: inherit;
+	font-weight: 700;
+	font-size: 1.2rem;
+	cursor: pointer;
 }
 
 .ticTacToe-action:hover {
-    filter: brightness(110%);
+	filter: brightness(110%);
 }
 
 .ticTacToe-action:active {
-    transform: scale(95%);
+	transform: scale(95%);
 }
 
 .ticTacToe-action--expand {
-    flex: 1 1 auto;
+	flex: 1 1 auto;
 }
 
 .ticTacToe-action--settings {
-    background-image: url("./images/cog.svg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 80%;
-    width: 2rem;
+	background-image: url('./images/cog.svg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 80%;
+	width: 2rem;
 }
