@@ -25,4 +25,5 @@ Try It Out!
 ------------
 
 Click the link below to try it out!
+
 https://christian-tarello.github.io/TicTacToe-JS/
